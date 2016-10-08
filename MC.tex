@@ -1,0 +1,125 @@
+\documentclass[10pt,a4paper]{article}
+
+%----------------------------------------------------------------------
+% Extra package includes
+%----------------------------------------------------------------------
+\usepackage{amsfonts}
+\usepackage{mathtools}
+\usepackage[margin=2.5cm]{geometry}
+
+%----------------------------------------------------------------------
+% Global settings for the document
+%----------------------------------------------------------------------
+\numberwithin{equation}{section}
+\setlength{\parskip}{\baselineskip}
+
+% ---------------------------------------------------------------------
+% Meta data
+%----------------------------------------------------------------------
+\title{Monte Carlo: Basics}
+\author{Matthias Moulin}
+\date{\today}
+
+% ---------------------------------------------------------------------
+% Document
+%----------------------------------------------------------------------
+\begin{document}
+
+\maketitle
+
+\section{Characteristic values of a probability distribution}
+\label{section:characteristicvalues}
+This section describes some important values including the mean, variance and standard deviation, to characterize or summarize a probability distribution.
+
+Let $\mathrm{d}\mu\left(x\right)$ be the measure function:
+\begin{equation}
+\mathrm{d}\mu\left(x\right)\ \coloneqq
+\begin{cases}
+p\left(x\right) \mathrm{d}x &\quad\text{for continuous random variables} \\
+\sum_{m=1}^{M} p_{m} \delta\left(x - x_{m}\right) \mathrm{d}x &\quad\text{for discrete random variables} \
+\end{cases}
+\end{equation}
+
+The \textit{mean} (a.k.a. \textit{expected value} a.k.a. \textit{expectation}) $\mathrm{E}\left[X\right]$ of the probability distribution with measure function $\mathrm{d}\mu\left(x\right)$ measures the expected value of a sample $X$. For a general function $f$, the \textit{mean} $\mathrm{E}\left[f\left(X\right)\right]$ of the probability distribution with measure function $\mathrm{d}\mu\left(x\right)$ measures the expected value of a sample $f\left(X\right)$. Both are defined as:
+\begin{align}
+\label{equation:E}\mathrm{E}\left[X\right] 						&\coloneqq\lim_{N \to +\infty} \frac{1}{N} \sum_{i=1}^{N} X_{i} = \int_{-\infty}^{+\infty} x \mathrm{d}\mu\left(x\right) \\
+\label{equation:Ef}\mathrm{E}\left[f\left(X\right)\right] 		&\coloneqq\lim_{N \to +\infty} \frac{1}{N} \sum_{i=1}^{N} f\left(X_{i}\right) = \int_{-\infty}^{+\infty} f\left(x\right) \mathrm{d}\mu\left(x\right),
+\end{align}
+where the $X_{i}$ are sampled from the probability distribution with measure function $\mathrm{d}\mu\left(x\right)$ and are independent and identically distributed. Note that the mean is expressed in the same dimensions as the individual samples.
+
+The \textit{variance} $\mathrm{VAR}\left[X\right]$ of the probability distribution with measure function $\mathrm{d}\mu\left(x\right)$ measures the squared deviation of an individual sample $X$ from its mean $\mathrm{E}\left[X\right]$. For a general function $f$, the \textit{variance} $\mathrm{VAR}\left[f\left(X\right)\right]$ of the probability distribution with measure function $\mathrm{d}\mu\left(x\right)$ measures the squared deviation of individual sample $f\left(X\right)$ from its mean $\mathrm{E}\left[f\left(X\right)\right]$. Both are defined as:
+\begin{align}
+\label{equation:VAR}\mathrm{VAR}\left[X\right] 					&\coloneqq  \mathrm{E}\left[{\left(X-\mathrm{E}\left[X\right]\right)}^{2}\right] = \int_{-\infty}^{+\infty} {\left(x-\mathrm{E}\left[X\right]\right)}^{2} \mathrm{d}\mu\left(x\right) \\
+\label{equation:VARf}\mathrm{VAR}\left[f\left(X\right)\right] 	&\coloneqq  \mathrm{E}\left[{\left(f\left(X\right)-\mathrm{E}\left[f\left(X\right)\right]\right)}^{2}\right] = \int_{-\infty}^{+\infty} {\left(f\left(x\right)-\mathrm{E}\left[f\left(X\right)\right]\right)}^{2} \mathrm{d}\mu\left(x\right),
+\end{align}
+where the $X_{i}$ are sampled from the probability distribution with measure $\mathrm{d}\mu\left(x\right)$ and are independent and identically distributed. Note that the variance is expressed in the same but squared dimensions as the mean and individual samples.
+
+The \textit{standard deviation} $\mathrm{STD}\left[X\right]$ of the probability distribution with measure function $\mathrm{d}\mu\left(x\right)$ measures how an individual sample $X$ deviates from its mean $\mathrm{E}\left[X\right]$. For a general function $f$, the \textit{variance} $\mathrm{STD}\left[f\left(X\right)\right]$ of the probability distribution with measure function $\mathrm{d}\mu\left(x\right)$ measures how an individual sample $f\left(X\right)$ deviates from its mean $\mathrm{E}\left[f\left(X\right)\right]$. Both are defined as:
+\begin{align}
+\label{equation:STD}\mathrm{STD}\left[X\right] 					&\coloneqq \sqrt{\mathrm{VAR}\left[X\right]} \\
+\label{equation:STDf}\mathrm{STD}\left[f\left(X\right)\right] 	&\coloneqq \sqrt{\mathrm{VAR}\left[f\left(X\right)\right]},
+\end{align}
+where the $X_{i}$ are sampled from the probability distribution with measure $\mathrm{d}\mu\left(x\right)$ and are independent and identically distributed. Note that the standard deviation is expressed in the same dimensions as the mean and the individual samples.
+
+The remainder of this text does not focus any more on the use of general functions $f$. However, it is trivial to include these.
+
+The following properties for the mean and variance for independent random variables $X$, $X_{1}$, $X_{2}$, and scalar $\alpha \in \mathbb{R}^{n}$ can be useful:
+\begin{align}
+\mathrm{E}\left[X_{1} + X_{2}\right] 		&= \mathrm{E}\left[X_{1}\right] + \mathrm{E}\left[X_{2}\right] \\
+\mathrm{E}\left[X + \alpha\right] 			&= \mathrm{E}\left[X\right] +\alpha \\
+\mathrm{E}\left[\alpha \cdot X\right] 		&= \alpha \cdot \mathrm{E}\left[X\right] \\
+\mathrm{VAR}\left[X_{1} + X_{2}\right] 		&= \mathrm{VAR}\left[X_{1}\right] + \mathrm{VAR}\left[X_{2}\right] \\
+\mathrm{VAR}\left[X + \alpha\right] 		&= \mathrm{VAR}\left[X\right]\\
+\mathrm{VAR}\left[\alpha \cdot X\right] 	&= \alpha^{2} \cdot \mathrm{VAR}\left[X\right].
+\end{align}
+
+\section{Estimators}
+\label{section-estimators}
+In order to calculate the characteristic values of a probability distribution (defined in Section \ref{section:characteristicvalues}), we need to solve an integral (for which in general no tractable closed form expression exists) or alternatively use an infinite number of samples. In practice, we estimate these characteristic values with a finite number of samples $N$. We will denote \textit{estimators} with a hat (e.g. $\widehat{A}$) or as $\left<B\right>$ to stress the estimated quantity $B$.
+
+An estimator $\left<\mathrm{E}\left[X\right]\right>$ for the expected value $\mathrm{E}\left[X\right]$ of a sample $X$ is defined as:
+\begin{align}
+\label{equation:estE}\left<\mathrm{E}\left[X\right]\right> &\coloneqq \frac{1}{N} \sum_{i=1}^{N} X_{i}.
+\end{align}
+An estimator $\left<\mathrm{VAR}\left[X\right]\right>$ for the variance $\mathrm{E}\left[X\right]$ of a sample $X$ is defined as:
+\begin{align}
+\label{equation:estVAR1}\left<\mathrm{VAR}\left[X\right]\right> &\coloneqq \frac{1}{N} \sum_{i=1}^{N} {\left(X_{i} - \mathrm{E}[X]\right)}^{2},
+\end{align}
+when the expected value of a sample $X$ is known, or is defined as:
+\begin{align}
+\label{equation:estVAR2}\left<\mathrm{VAR}\left[X\right]\right> &\coloneqq \frac{1}{N} \sum_{i=1}^{N} {\left(X_{i} - \left<\mathrm{E}\left[X\right]\right>\right)}^{2},
+\end{align}
+when the expected value of a sample $X$ is estimated as well with a different set of samples $X_{i}$, or is defined as:
+\begin{align}
+\label{equation:estVAR}\left<\mathrm{VAR}\left[X\right]\right> &\coloneqq \frac{1}{N-1} \sum_{i=1}^{N} {\left(X_{i} - \left<\mathrm{E}\left[X\right]\right>\right)}^{2},
+\end{align}
+where the expected value of of a sample $X$ is estimated as well with the same set of samples $X_{i}$.
+
+\section{Error quantification}
+Since an estimator is obtained with only a finite number of samples (see Section \ref{section-estimators}), we need a way to quantify the 'error' between the estimator and the estimated quantity. Once, we are able to quantify the error in function of the number of samples, we can determine the number of samples needed for a given error.
+
+The quantity $\widehat{X} - \mathrm{E}\left[X\right]$ where $\widehat{X}$ is an estimator for $\mathrm{E}\left[X\right]$, is called the \textit{error}. The expected value of this error is called the \textit{bias}, denoted as $\beta\left[\widehat{X}\right]$:
+\begin{align}
+\beta\left[\widehat{X}\right] &\coloneqq \mathrm{E}\left[\widehat{X} - \mathrm{E}\left[X\right]\right] \\
+&= \mathrm{E}\left[\widehat{X}\right] - \mathrm{E}\left[X\right]. \nonumber
+\end{align}
+
+The \textit{Mean Square(d) Error} (MSE) of an estimator $\widehat{X}$ is defined as:
+\begin{align}
+\mathrm{MSE}\left[\widehat{X}\right] &\coloneqq \mathrm{E}\left[{\left(\widehat{X} - X\right)}^{2}\right] \\
+&= \mathrm{E}\left[{\left(\widehat{X} - \mathrm{E}\left[\widehat{X}\right] + \mathrm{E}\left[\widehat{X}\right] - X\right)}^{2}\right] \nonumber \\
+&= \mathrm{E}\left[{\left(\widehat{X} - \mathrm{E}\left[\widehat{X}\right]\right)}^{2} + 2 \cdot \left(\widehat{X} - \mathrm{E}\left[\widehat{X}\right]\right) \cdot \left(\mathrm{E}\left[\widehat{X}\right] - X\right) + {\left(\mathrm{E}\left[\widehat{X}\right] - X\right)}^{2}\right] \nonumber \\
+&= \mathrm{E}\left[{\left(\widehat{X} - \mathrm{E}\left[\widehat{X}\right]\right)}^{2}\right] + 2 \cdot \mathrm{E}\left[\left(\widehat{X} - \mathrm{E}\left[\widehat{X}\right]\right)\right] \cdot \mathrm{E}\left[\left(\mathrm{E}\left[\widehat{X}\right] - X\right)\right] + \mathrm{E}\left[{\left(\mathrm{E}\left[\widehat{X}\right] - X\right)}^{2}\right] \nonumber \\
+&= \mathrm{E}\left[{\left(\widehat{X} - \mathrm{E}\left[\widehat{X}\right]\right)}^{2}\right] + \underbrace{2 \cdot \left(\mathrm{E}\left[\widehat{X}\right] - \mathrm{E}\left[\widehat{X}\right]\right) \cdot \left(\mathrm{E}\left[\widehat{X}\right] - \mathrm{E}\left[\widehat{X}\right]\right)}_{\text{ = 0}} + {\mathrm{E}\left[\widehat{X}\right]}^{2} - {\mathrm{E}\left[X\right]}^{2} \nonumber \\
+&= \underbrace{\mathrm{E}\left[{\left(\widehat{X} - \mathrm{E}\left[\widehat{X}\right]\right)}^{2}\right]}_{\text{variance}} + {\left(\underbrace{\mathrm{E}\left[\widehat{X}\right] - \mathrm{E}\left[X\right]}_{\text{bias}}\right)}^{2} \nonumber \\
+&= \mathrm{VAR}\left[\widehat{X}\right] + {\beta\left[\widehat{X}\right]}^{2}.
+\end{align}
+The \textit{Root Mean Square(d) Error} (RMSE) of an estimator $\widehat{X}$ is defined as:
+\begin{equation}
+\mathrm{RMSE}\left[\widehat{X}\right] \coloneqq \sqrt{\mathrm{MSE}\left[\widehat{X}\right]}. \\
+\end{equation}
+
+To quantify the error in function of the number of samples $N$, we want to describe the behaviour of $\mathrm{RMSE}\left[\widehat{X}\right]$ in function of the number of samples $N$. We will estimate the quantity $\mathrm{RMSE}\left[\widehat{X}\right]$. In fact, we will use multiple independent estimators to characterize the distribution of the estimator. Once this distribution is known, we can validate candidate fitting curves on their feasibility.
+
+For \textit{unbiased} estimators $\widehat{X}$ the bias $\beta\left[\widehat{X}\right] \equiv 0$ or alternatively $\mathrm{E}\left[\widehat{X}\right] \equiv \mathrm{E}\left[X\right]$ which means that the estimator $\widehat{X}$ on average will be equal to the estimated quantity $\mathrm{E}\left[X\right]$ (independent of the number of samples $N$). Furthermore, $\mathrm{MSE}\left[\widehat{X}\right] \equiv \mathrm{VAR}\left[\widehat{X}\right]$ and $\mathrm{RMSE}\left[\widehat{X}\right] \equiv \sqrt{\mathrm{VAR}\left[\widehat{X}\right]}$.
+\end{document}
