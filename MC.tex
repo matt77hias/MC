@@ -64,14 +64,24 @@ where the $X_{i}$ are sampled from the probability distribution with measure $\m
 
 The remainder of this text does not focus any more on the use of general functions $f$. However, it is trivial to include these.
 
-The following properties for the mean and variance for independent random variables $X$, $X_{1}$, $X_{2}$, and scalar $\alpha \in \mathbb{R}^{n}$ can be useful:
+The following properties for the mean and variance for a random variable $X$ and scalar $\alpha \in \mathbb{R}^{n}$ can be useful:
 \begin{align}
-\mathrm{E}\left[X_{1} + X_{2}\right] 		&= \mathrm{E}\left[X_{1}\right] + \mathrm{E}\left[X_{2}\right] \\
 \mathrm{E}\left[X + \alpha\right] 			&= \mathrm{E}\left[X\right] +\alpha \\
 \mathrm{E}\left[\alpha \cdot X\right] 		&= \alpha \cdot \mathrm{E}\left[X\right] \\
-\mathrm{VAR}\left[X_{1} + X_{2}\right] 		&= \mathrm{VAR}\left[X_{1}\right] + \mathrm{VAR}\left[X_{2}\right] \\
 \mathrm{VAR}\left[X + \alpha\right] 		&= \mathrm{VAR}\left[X\right]\\
 \mathrm{VAR}\left[\alpha \cdot X\right] 	&= \alpha^{2} \cdot \mathrm{VAR}\left[X\right].
+\end{align}
+
+The \textit{covariance} between an individual sample $X$ sampled according to the probability distribution with measure function $\mathrm{d}\mu\left(x\right)$ and an individual sample $Y$ sampled according to the probability distribution with measure function $\mathrm{d}\mu\left(y\right)$ is defined as:
+\begin{align}
+\label{equation:COV}\mathrm{COV}\left[X, Y\right] &\coloneqq \mathrm{E}\left[\left(X-\mathrm{E}\left[X\right]\right) \cdot \left(Y-\mathrm{E}\left[Y\right]\right)\right].
+\end{align}
+Note that the covariance is a generalization of the variance since $\mathrm{COV}\left[X, X\right] \equiv \mathrm{VAR}\left[X\right]$. Two random variables $X$ and $Y$ are said to be independent if and only if $\mathrm{COV}\left[X, Y\right] \equiv 0$.
+
+The following properties for the mean and variance for independent random variables $X$, $Y$ can be useful:
+\begin{align}
+\mathrm{E}\left[X + Y\right] 		&= \mathrm{E}\left[X\right] + \mathrm{E}\left[Y\right] \\
+\mathrm{VAR}\left[X + Y\right] 		&= \mathrm{VAR}\left[X\right] + \mathrm{VAR}\left[Y\right].
 \end{align}
 
 \section{Estimators}
